@@ -10,6 +10,8 @@ export const etapaAlterada = async (req, res) => {
 
   const baseOmie = await BaseOmie.findOne({ appKey });
 
+  console.log("Base Omie", baseOmie);
+
   if (!baseOmie)
     return res.status(400).send({ message: "Base omie não encontrada" });
 
