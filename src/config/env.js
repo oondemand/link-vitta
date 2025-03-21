@@ -7,7 +7,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["dev", "test", "prod"]).default("dev"),
   PORT: z.string().default("3000"),
   SERVICE_VERSION: z.string().default("1.0.0"),
-  API_OMIE_BASE_URL: z.string().default(""),
+  API_OMIE_BASE_URL: z.string().default("https://app.omie.com.br/api/v1/"),
   ETAPA_LINK: z.string(),
   MONGO_URI: z.string(),
   DB_USER: z.string(),

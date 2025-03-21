@@ -11,7 +11,7 @@ const gerar = async ({ html }) => {
     const pdf = await page.pdf({ format: "A4", printBackground: true });
 
     await browser.close();
-    return pdf;
+    return Buffer.from(pdf);
   } catch (error) {
     console.log(error.stack);
     throw new Error(`Erro ao gerar PDF: ${error.stack}`);

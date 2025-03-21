@@ -8,14 +8,22 @@ export const etapaAlterada = async (req, res) => {
   const { appKey, event, author } = req.body;
   const { cEtapa, nCodPed } = event.cabecalho_consulta;
 
-  const baseOmie = await BaseOmie.findOne({ appKey });
+  console.log(
+    "🟧 [importante]",
+    appKey,
+    event,
+    author,
+    cEtapa,
+    String(cEtapa) === env.ETAPA_LINK
+  );
 
-  console.log("Base Omie", baseOmie);
+  const baseOmie = await BaseOmie.findOne({ appKey });
 
   if (!baseOmie)
     return res.status(400).send({ message: "Base omie não encontrada" });
 
-  if (cEtapa === env.ETAPA_LINK) link({ baseOmie, nCodPed, autor: author });
+  if (String(cEtapa) === env.ETAPA_LINK)
+    link({ baseOmie, nCodPed, autor: author });
 
   res.send();
 };

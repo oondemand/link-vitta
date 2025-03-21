@@ -11,7 +11,10 @@ const incluir = async ({
   arquivo,
 }) => {
   try {
-    const arquivoCompactado = await compactFile(arquivo, nomeArquivo);
+    const arquivoCompactado = await compactFile({
+      fileBuffer: arquivo,
+      filename: nomeArquivo,
+    });
 
     const param = {
       cCodIntAnexo: "",

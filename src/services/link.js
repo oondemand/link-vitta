@@ -12,6 +12,8 @@ import { contaPagarService } from "./omie/contaPagarService.js";
 import { anexoService } from "./omie/anexoService.js";
 import { pedidoAlterado } from "../utils/conta.js";
 
+import ejs from "ejs";
+
 export const link = async ({ baseOmie, nCodPed, autor }) => {
   try {
     console.log(
@@ -23,13 +25,14 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
       appSecret: baseOmie.appSecret,
       nCodPed,
     });
-
     if (!pedido) throw new Error("Pedido de compra não encontrado");
 
     const dataAtual = format(new Date(), "dd/MM/yy HH:mm", { locale: ptBR });
 
     let msg = "Link para contas a pagar:\n";
+
     const template = await Template.findOne({ nome: "pedido-de-compra" });
+    // if (!template) throw new Error("Template não encontrado");
 
     const departamentos = await departamentoService.listar({
       appKey: baseOmie.appKey,
@@ -47,19 +50,21 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
       departamentos,
       fornecedor,
       autor,
-      empresa,
+      empresa: baseOmie,
       dataAtual,
     };
 
-    const html = ejs.render(template, templateVariables);
+    const html = ejs.render(template.templateEjs, templateVariables);
     const pdfBuffer = await pdf.gerar({ html });
+
+    const totalParcelas = pedido.parcelas_consulta.length;
 
     for (const [index, parcela] of pedido.parcelas_consulta.entries()) {
       console.log("Incluindo conta: ", index + 1, "de", totalParcelas);
 
       const parcelaFormatada = formatarParcela({
         numeroParcelaAtual: index + 1,
-        totalParcelas: pedido.parcelas_consulta.length,
+        totalParcelas,
       });
 
       const conta = await criarConta({

@@ -3,6 +3,6 @@ import { etapaAlterada } from "../controllers/compra-produto/etapa-alterada.js";
 
 const compraProdutoRoutes = express.Router();
 
-compraProdutoRoutes.get("/etapa-alterada", etapaAlterada);
+compraProdutoRoutes.post("/etapa-alterada", etapaAlterada);
 
 export { compraProdutoRoutes };
