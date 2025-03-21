@@ -13,7 +13,7 @@ export const etapaAlterada = async (req, res) => {
   if (!baseOmie)
     return res.status(400).send({ message: "Base omie não encontrada" });
 
-  if (cEtapa === env.ETAPA_LINK) link({ baseOmie, nCodPed, author });
+  if (cEtapa === env.ETAPA_LINK) link({ baseOmie, nCodPed, autor: author });
 
   res.send();
 };
