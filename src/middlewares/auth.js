@@ -1,25 +1,18 @@
+import { BaseOmie } from "../models/base-omie.js";
+
 export const authenticateBySecretKey = async (req, res, next) => {
   try {
-    const secretKey = req.headers.secretkey || req.query.secretKey;
-    if (!secretKey) {
-      return res.status(400).send({ message: "SecretKey é necessária" });
-    }
-
-    // const sistemaData = await msAppOonDemand.get(
-    //   `sistema?app.secretKey=${secretKey}`
-    // );
-    // const sistema = sistemaData.data[0];
-
-    // if (!sistema) {
-    //   throw new Error("Sistema não encontrado");
+    // const secretKey = req.headers.secretkey || req.query.secretKey;
+    // if (!secretKey) {
+    //   return res.status(400).send({ message: "SecretKey é necessária" });
     // }
 
-    // if (sistema.status !== "ativo") {
-    //   throw new Error("Sistema inativo");
-    // }
+    // const baseOmie = await BaseOmie.findOne({ secretKey });
 
-    req.headers.secretkey = secretKey;
-    delete req.query.secretKey;
+    // if (!baseOmie) throw new Error("Base omie não encontrada");
+    // if (baseOmie?.status !== "ativo") throw new Error("Base omie inativa!");
+
+    // req.body.baseOmie = baseOmie;
 
     next();
   } catch (error) {
