@@ -10,6 +10,8 @@ const envSchema = z.object({
   API_OMIE_BASE_URL: z.string().default(""),
   ETAPA_LINK: z.string(),
   MONGO_URI: z.string(),
+  DB_USER: z.string(),
+  DB_PASSWORD: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
