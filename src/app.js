@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 
 import { z } from "zod";
 import { authRouter } from "./routes/auth.js";
+import { usuarioRouter } from "./routes/usuario.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", statusRoutes);
 app.use("/", authRouter);
 app.use("/compra-produto", compraProdutoRoutes);
+app.use("/usuario", usuarioRouter);
 
 app.use((error, req, res, next) => {
   if (error instanceof z.ZodError) {

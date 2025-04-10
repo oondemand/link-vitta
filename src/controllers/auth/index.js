@@ -1,9 +1,9 @@
-import { Usuario } from "../../models/usuario";
+import { Usuario } from "../../models/usuario.js";
 import z from "zod";
 
 const loginSchema = z.object({
   email: z.string().email(),
-  senha: z.string().senha(),
+  senha: z.string().min(6),
 });
 
 export const login = async (req, res, next) => {
