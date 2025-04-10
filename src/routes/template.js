@@ -1,8 +1,8 @@
 import express from "express";
-import { create } from "../controllers/template/create";
-import { update } from "../controllers/template/update";
-import { deleteTemplate } from "../controllers/template/delete";
-import { listAll } from "../controllers/template/list-all";
+import { create } from "../controllers/template/create.js";
+import { update } from "../controllers/template/update.js";
+import { deleteTemplate } from "../controllers/template/delete.js";
+import { listAll } from "../controllers/template/list-all.js";
 
 const templateRouter = express.Router();
 

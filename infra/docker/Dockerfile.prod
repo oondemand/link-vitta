@@ -1,0 +1,63 @@
+# Estágio 1: Builder
+FROM node:20 AS builder
+
+WORKDIR /app
+
+# Copiar os arquivos package.json e package-lock.json da raiz do projeto
+COPY package*.json .
+
+# Instalar apenas as dependências de produção
+RUN npm install --production
+
+# Copiar o diretório 'src' e os arquivos necessários da raiz do projeto
+COPY src ./src
+
+# Estágio 2: Produção
+FROM node:20
+
+# Definindo a variável de ambiente SERVICE_VERSION com o valor do argumento
+ARG SERVICE_VERSION
+# Definindo o argumento SERVICE_VERSION, que pode ser passado durante o build
+ENV SERVICE_VERSION=${SERVICE_VERSION}
+
+RUN echo "A versão da aplicação é: $SERVICE_VERSION"
+
+RUN apt-get update && \
+    apt-get install -y \
+        libnss3 \
+        libgconf-2-4 \
+        libxkbcommon0 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxrandr2 \
+        libasound2 \
+        libatspi2.0-0 \
+        libnspr4 \
+        libgtk-3-0 \
+        libgbm1 \
+        libpango-1.0-0 \
+        libpangocairo-1.0-0 \
+        libcups2 \
+        libdconf1 \
+        libgdk-pixbuf2.0-0 \
+        libxss1 \
+        libappindicator3-1 \
+        libxtst6 \
+        libnss3-tools \
+        fonts-liberation \
+        libu2f-udev \
+        libvulkan1 \
+        xdg-utils \
+        wget \
+        ca-certificates
+
+WORKDIR /app
+
+# Copiar os arquivos do estágio de build
+COPY --from=builder /app /app
+
+# Expor a porta em que a aplicação será executada
+EXPOSE 4000
+
+# Comando para iniciar a aplicação
+CMD ["npm", "start"]
