@@ -13,6 +13,8 @@ import { anexoService } from "./omie/anexoService.js";
 import { pedidoAlterado } from "../utils/conta.js";
 
 import ejs from "ejs";
+import { EmailService } from "./email/index.js";
+import { env } from "../config/env.js";
 
 export const link = async ({ baseOmie, nCodPed, autor }) => {
   try {
@@ -25,6 +27,7 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
       appSecret: baseOmie.appSecret,
       nCodPed,
     });
+
     if (!pedido) throw new Error("Pedido de compra não encontrado");
 
     const dataAtual = format(new Date(), "dd/MM/yy HH:mm", { locale: ptBR });
@@ -32,7 +35,7 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
     let msg = "Link para contas a pagar:\n";
 
     const template = await Template.findOne({ nome: "pedido-de-compra" });
-    // if (!template) throw new Error("Template não encontrado");
+    if (!template) throw new Error("Template não encontrado");
 
     const departamentos = await departamentoService.listar({
       appKey: baseOmie.appKey,
@@ -115,11 +118,20 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
       pedido: pedidoNovo,
     });
 
-    console.log("🟩 Pedido de compra alterado", pedido, fornecedor, autor);
+    // `${autor.email},${env.EMAIL_FINANCEIRO},fabio.anaia.aiello@gmail.com,fabio@pdvseven.com.br`
 
-    // await enviarEmail(pedido, fornecedor, autor);
+    await EmailService.enviarEmail({
+      dest: `${env.EMAIL_FINANCEIRO},maikonalexandry574@gmail.com`,
+      remetente: {
+        email: "notificacao@oondemand.com.br",
+        nome: "notificação oondemand",
+      },
+      subject: `Conta a Pagar Criada - Pedido N. ${pedido.cabecalho_consulta.cNumero}`,
+      mensagem: `Compra do Fornecedor: ${fornecedor.razao_social} aprovada e gerado Conta a Pagar`,
+    });
 
-    console.log("Processo finalizado");
+    console.log("Email enviado");
+    console.log("🚀 Processo finalizado");
   } catch (error) {
     console.log(error);
   }

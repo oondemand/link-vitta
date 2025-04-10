@@ -12,6 +12,8 @@ const envSchema = z.object({
   MONGO_URI: z.string(),
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
+  EMAIL_FINANCEIRO: z.string(),
+  SENDGRID_API_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
