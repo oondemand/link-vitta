@@ -7,16 +7,16 @@ const userSchema = z.object({
   senha: z.string().min(6),
 });
 
-export const create = async (req, res, next) => {
+export const createFirstUser = async (req, res, next) => {
   try {
     const { nome, email, senha } = userSchema.parse(req.body);
 
-    const usuario = await Usuario.findOne({ email });
+    const usuario = await Usuario.findOne();
 
     if (usuario) {
       return res
         .status(409)
-        .json({ message: "Já existe um usuário com esse email cadastrado!" });
+        .json({ message: "Já existe um usuário cadastrado!" });
     }
 
     const novoUsuario = new Usuario({
@@ -28,7 +28,6 @@ export const create = async (req, res, next) => {
     await novoUsuario.save();
     res.status(201).json(novoUsuario);
   } catch (error) {
-    console.error(error);
     next(error);
   }
 };

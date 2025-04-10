@@ -13,6 +13,9 @@ import { z } from "zod";
 import { authRouter } from "./routes/auth.js";
 import { usuarioRouter } from "./routes/usuario.js";
 
+import { authMiddleware } from "./middlewares/auth.js";
+import { baseOmieRouter } from "./routes/base-omie.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -27,7 +30,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", statusRoutes);
 app.use("/", authRouter);
 app.use("/compra-produto", compraProdutoRoutes);
+
+app.use(authMiddleware);
 app.use("/usuario", usuarioRouter);
+app.use("/base-omie", baseOmieRouter);
 
 app.use((error, req, res, next) => {
   if (error instanceof z.ZodError) {

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Usuario } from "../models/usuario.js";
 
-const authMiddleware = async (req, res, next) => {
+export const authMiddleware = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -23,5 +23,3 @@ const authMiddleware = async (req, res, next) => {
     return res.status(401).json({ error: "Token inválido." });
   }
 };
-
-module.exports = authMiddleware;

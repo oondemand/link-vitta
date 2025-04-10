@@ -1,5 +1,6 @@
 import { Usuario } from "../../models/usuario.js";
 import z from "zod";
+import bcrypt from "bcryptjs";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -7,9 +8,8 @@ const loginSchema = z.object({
 });
 
 export const login = async (req, res, next) => {
-  const { email, senha } = loginSchema.parse(req.body);
-
   try {
+    const { email, senha } = loginSchema.parse(req.body);
     const usuario = await Usuario.findOne({ email });
 
     if (!usuario)
