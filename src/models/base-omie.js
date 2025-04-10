@@ -11,6 +11,11 @@ const BaseOmieSchema = new mongoose.Schema(
     },
     appKey: { type: String, required: true },
     appSecret: { type: String, required: true },
+    usuario: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario",
+      // required: true,
+    },
   },
   { timestamps: true }
 );
