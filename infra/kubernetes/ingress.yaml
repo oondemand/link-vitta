@@ -1,27 +1,27 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: doc-custom-backend-ingress
-#   namespace: doc-custom
-#   annotations:
-#     cert-manager.io/cluster-issuer: letsencrypt-nginx
-#     nginx.ingress.kubernetes.io/use-regex: "true"
-#     nginx.ingress.kubernetes.io/rewrite-target: "/$1"
-#     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: link-pedidocompra-contapagar-ingress
+  namespace: link-pedidocompra-contapagar
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
 # spec:
 #   ingressClassName: nginx
 #   tls:
 #     - hosts:
-#         - api.doc-custom.oondemand.com.br
+#         - api.link-pedidocompra-contapagar.oondemand.com.br
 #       secretName: app-tls
 #   rules:
-#     - host: api.doc-custom.oondemand.com.br
+#     - host: api.link-pedidocompra-contapagar.oondemand.com.br
 #       http:
 #         paths:
 #           - path: /(.*)
 #             pathType: ImplementationSpecific
 #             backend:
 #               service:
-#                 name: doc-custom-backend-service
+#                 name: link-pedidocompra-contapagar-service
 #                 port:
 #                   number: 80

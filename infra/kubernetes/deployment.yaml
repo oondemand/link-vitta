@@ -1,58 +1,50 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: doc-custom-backend
-#   namespace: doc-custom
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: doc-custom-backend
-#   template:
-#     metadata:
-#       labels:
-#         app: doc-custom-backend
-#     spec:
-#       containers:
-#         - name: doc-custom-backend-container
-#           image: ghcr.io/oondemand/fatura-personalizada-backend:${IMAGE_TAG}
-#           ports:
-#             - containerPort: 4000
-#           env:
-#             - name: NODE_ENV
-#               value: "${NODE_ENV}"
-#             - name: SERVICE_NAME
-#               value: "${SERVICE_NAME}"
-#             - name: PORT
-#               value: "${PORT}"
-#             - name: DB_SERVER
-#               value: "${DB_SERVER}"
-#             - name: DB_USER
-#               value: "${DB_USER}"
-#             - name: DB_PASSWORD
-#               value: "${DB_PASSWORD}"
-#             - name: DB_NAME
-#               value: "${DB_NAME}"
-#             - name: DB_AUTH_SOURCE
-#               value: "${DB_AUTH_SOURCE}"
-#             - name: DB_REPLICA_SET
-#               value: "${DB_REPLICA_SET}"
-#             - name: DB_TSL
-#               value: "${DB_TSL}"
-#             - name: OMIE_API_URL
-#               value: "${OMIE_API_URL}"
-#             - name: JWT_SECRET
-#               value: "${JWT_SECRET}"
-#             - name: SENDGRID_API_KEY
-#               value: "${SENDGRID_API_KEY}"
-#             - name: EMAIL_REMETENTE
-#               value: "${EMAIL_REMETENTE}"
-#             - name: FATURA_PERSONALIZADA_CLIENT
-#               value: "${FATURA_PERSONALIZADA_CLIENT}"
-#           resources:
-#             requests:
-#               memory: "256Mi"
-#               cpu: "0.1"
-#             limits:
-#               memory: "3072Mi"
-#               cpu: "2"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: link-pedidocompra-contapagar
+  namespace: link-pedidocompra-contapagar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: link-pedidocompra-contapagar
+  template:
+    metadata:
+      labels:
+        app: link-pedidocompra-contapagar
+    spec:
+      containers:
+        - name: link-pedidocompra-contapagar-container
+          image: ghcr.io/oondemand/link-pedidocompra-contapagar:${IMAGE_TAG}
+          ports:
+            - containerPort: 4000
+          env:
+            - name: NODE_ENV
+              value: "${NODE_ENV}"
+            - name: PORT
+              value: "${PORT}"
+            - name: SERVICE_VERSION
+              value: "${SERVICE_VERSION}"
+            - name: API_OMIE_BASE_URL
+              value: "${API_OMIE_BASE_URL}"
+            - name: ETAPA_LINK
+              value: "${ETAPA_LINK}"
+            - name: MONGO_URI
+              value: "${MONGO_URI}"
+            - name: DB_USER
+              value: "${DB_USER}"
+            - name: DB_PASSWORD
+              value: "${DB_PASSWORD}"
+            - name: EMAIL_FINANCEIRO
+              value: "${EMAIL_FINANCEIRO}"
+            - name: SENDGRID_API_KEY
+              value: "${SENDGRID_API_KEY}"
+            - name: JWT_SECRET
+              value: "${JWT_SECRET}"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "0.1"
+            limits:
+              memory: "3072Mi"
+              cpu: "2"

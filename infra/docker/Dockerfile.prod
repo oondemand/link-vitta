@@ -22,6 +22,7 @@ ENV SERVICE_VERSION=${SERVICE_VERSION}
 
 RUN echo "A versão da aplicação é: $SERVICE_VERSION"
 
+# Instale as bibliotecas necessárias para o Puppeteer
 RUN apt-get update && \
     apt-get install -y \
         libnss3 \
@@ -49,12 +50,22 @@ RUN apt-get update && \
         libvulkan1 \
         xdg-utils \
         wget \
-        ca-certificates
+        ca-certificates \
+        gnupg
+
+# Adicionar o repositório do Google Chrome e instalar o Chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable
 
 WORKDIR /app
 
 # Copiar os arquivos do estágio de build
 COPY --from=builder /app /app
+
+# Definir variáveis de ambiente necessárias para o Puppeteer
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
 # Expor a porta em que a aplicação será executada
 EXPOSE 4000
