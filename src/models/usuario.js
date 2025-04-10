@@ -22,4 +22,4 @@ UserSchema.methods.gerarToken = function () {
   });
 };
 
-module.exports = mongoose.model("Usuario", UserSchema);
+export const Usuario = mongoose.model("Usuario", UserSchema);
