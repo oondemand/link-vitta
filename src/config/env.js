@@ -14,6 +14,7 @@ const envSchema = z.object({
   DB_PASSWORD: z.string(),
   EMAIL_FINANCEIRO: z.string(),
   SENDGRID_API_KEY: z.string(),
+  JWT_SECRET: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
