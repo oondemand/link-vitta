@@ -8,15 +8,6 @@ export const etapaAlterada = async (req, res) => {
   const { appKey, event, author } = req.body;
   const { cEtapa, nCodPed } = event.cabecalho_consulta;
 
-  console.log(
-    "🟧 [importante]",
-    appKey,
-    event,
-    author,
-    cEtapa,
-    String(cEtapa) === env.ETAPA_LINK
-  );
-
   const baseOmie = await BaseOmie.findOne({ appKey });
 
   if (!baseOmie)

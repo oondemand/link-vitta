@@ -10,6 +10,11 @@ const TemplateSchema = new mongoose.Schema(
       default: "ativo",
       enum: ["ativo", "inativo"],
     },
+    usuario: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario",
+      // required: true,
+    },
   },
   { timestamps: true }
 );

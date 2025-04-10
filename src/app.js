@@ -32,7 +32,7 @@ app.use("/", authRouter);
 app.use("/compra-produto", compraProdutoRoutes);
 
 app.use(authMiddleware);
-app.use("/usuario", usuarioRouter);
+app.use("/usuarios", usuarioRouter);
 app.use("/base-omie", baseOmieRouter);
 
 app.use((error, req, res, next) => {
