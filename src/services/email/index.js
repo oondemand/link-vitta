@@ -33,7 +33,10 @@ const enviarEmail = async ({ dest, remetente, subject, mensagem, anexos }) => {
 
     await client.send(email);
   } catch (error) {
-    console.log("Erro ao enviar email: ", error);
+    console.log(
+      "Erro ao enviar email::",
+      error?.response?.body?.errors || error
+    );
     throw "Erro ao enviar email";
   }
 };
