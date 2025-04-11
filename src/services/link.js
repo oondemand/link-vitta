@@ -129,7 +129,7 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
     });
 
     console.log("Email enviado");
-    console.log("🚀 Processo finalizado");
+    console.log("🟩 🚀 Processo finalizado");
   } catch (error) {
     console.log(error);
   }
