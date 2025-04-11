@@ -1,27 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: link-pedidocompra-contapagar-ingress
-  namespace: link-pedidocompra-contapagar
+  name: link-vitta-ingress
+  namespace: link-vitta
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: "/$1"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
-# spec:
-#   ingressClassName: nginx
-#   tls:
-#     - hosts:
-#         - api.link-pedidocompra-contapagar.oondemand.com.br
-#       secretName: app-tls
-#   rules:
-#     - host: api.link-pedidocompra-contapagar.oondemand.com.br
-#       http:
-#         paths:
-#           - path: /(.*)
-#             pathType: ImplementationSpecific
-#             backend:
-#               service:
-#                 name: link-pedidocompra-contapagar-service
-#                 port:
-#                   number: 80
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.vitta.oondemand.com.br
+      secretName: app-tls
+  rules:
+    - host: api.vitta.oondemand.com.br
+      http:
+        paths:
+          - path: /(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: link-vitta-service
+                port:
+                  number: 80

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: link-pedidocompra-contapagar
-  namespace: link-pedidocompra-contapagar
+  name: link-vitta
+  namespace: link-vitta
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: link-pedidocompra-contapagar
+      app: link-vitta
   template:
     metadata:
       labels:
-        app: link-pedidocompra-contapagar
+        app: link-vitta
     spec:
       containers:
-        - name: link-pedidocompra-contapagar-container
-          image: ghcr.io/oondemand/link-pedidocompra-contapagar:${IMAGE_TAG}
+        - name: link-vitta-container
+          image: ghcr.io/oondemand/link-vitta:${IMAGE_TAG}
           ports:
             - containerPort: 4000
           env:

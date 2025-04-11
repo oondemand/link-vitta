@@ -118,10 +118,8 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
       pedido: pedidoNovo,
     });
 
-    // `${autor.email},${env.EMAIL_FINANCEIRO},fabio.anaia.aiello@gmail.com,fabio@pdvseven.com.br`
-
     await EmailService.enviarEmail({
-      dest: `${env.EMAIL_FINANCEIRO},maikonalexandry574@gmail.com`,
+      dest: `${autor.email},${env.EMAIL_FINANCEIRO}`,
       remetente: {
         email: "notificacao@oondemand.com.br",
         nome: "notificação oondemand",
