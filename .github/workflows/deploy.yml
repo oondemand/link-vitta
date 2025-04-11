@@ -58,7 +58,6 @@ jobs:
           IMAGE_TAG: ${{ env.TAG }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
           PORT: ${{ secrets.PORT }}
-          SERVICE_VERSION: ${{ secrets.SERVICE_VERSION }}
           API_OMIE_BASE_URL: ${{ secrets.API_OMIE_BASE_URL }}
           ETAPA_LINK: ${{ secrets.ETAPA_LINK }}
           MONGO_URI: ${{ secrets.MONGO_URI }}

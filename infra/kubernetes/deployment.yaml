@@ -23,8 +23,6 @@ spec:
               value: "${NODE_ENV}"
             - name: PORT
               value: "${PORT}"
-            - name: SERVICE_VERSION
-              value: "${SERVICE_VERSION}"
             - name: API_OMIE_BASE_URL
               value: "${API_OMIE_BASE_URL}"
             - name: ETAPA_LINK
