@@ -4,5 +4,5 @@ import { connectDB } from "./config/db.js";
 
 app.listen(env.PORT, async () => {
   await connectDB();
-  console.log(`🟩 App running on port ${env.PORT}`);
+  console.log(`🟢 App running on port ${env.PORT}`);
 });
