@@ -16,7 +16,7 @@ import ejs from "ejs";
 import { EmailService } from "./email/index.js";
 import { env } from "../config/env.js";
 
-export const link = async ({ baseOmie, nCodPed, autor }) => {
+export const link = async ({ baseOmie, nCodPed, autor, cNumero }) => {
   try {
     console.log(
       `Iniciando processo de link entre pedido de compra ${nCodPed} e contas a pagar`
@@ -77,8 +77,6 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
         valor: parcela.nValor,
       });
 
-      // console.log("Conta criada: ", JSON.stringify(conta));
-
       const contaIncluida = await contaPagarService.incluir({
         appKey: baseOmie.appKey,
         appSecret: baseOmie.appSecret,
@@ -128,9 +126,39 @@ export const link = async ({ baseOmie, nCodPed, autor }) => {
       mensagem: `Compra do Fornecedor: ${fornecedor.razao_social} aprovada e gerado Conta a Pagar`,
     });
 
-    console.log("Email enviado");
-    console.log("🚀 Processo finalizado");
+    console.log("Email enviado", `${autor.email},${env.EMAIL_FINANCEIRO}`);
+    console.log("🚀🦥 Processo finalizado");
   } catch (error) {
-    console.log(error);
+    console.log(
+      "🟥 [ERRO]",
+      error?.response?.data?.faultstring || "Erro inesperado"
+    );
+
+    await notificarErro({ autor, error, pedido: cNumero });
+  }
+};
+
+const notificarErro = async ({ error, autor, pedido }) => {
+  try {
+    const errorsFile = Buffer.from(error.toString()).toString("base64");
+    const anexos = [{ filename: "errors.txt", fileBuffer: errorsFile }];
+
+    await EmailService.enviarEmail({
+      dest: `${autor.email},${env.EMAIL_FINANCEIRO}`,
+      remetente: {
+        email: "notificacao@oondemand.com.br",
+        nome: "notificação oondemand",
+      },
+      subject: `Erro ao criar conta a pagar - Pedido N. ${pedido}`,
+      mensagem: `Ouve um erro ao criar conta a pagar! Para mais detalhes, verifique o anexo.`,
+      anexos,
+    });
+
+    console.log(
+      "Email de erro enviado",
+      `${autor.email},${env.EMAIL_FINANCEIRO}`
+    );
+  } catch (error) {
+    console.log("🟥 [ERRO]: Ouve um erro ao notificar erro via email ", error);
   }
 };
