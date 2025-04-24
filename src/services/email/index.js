@@ -37,7 +37,6 @@ const enviarEmail = async ({ dest, remetente, subject, mensagem, anexos }) => {
       "Erro ao enviar email::",
       error?.response?.body?.errors || error
     );
-    throw "Erro ao enviar email";
   }
 };
 
