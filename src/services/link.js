@@ -127,7 +127,7 @@ export const link = async ({ baseOmie, nCodPed, autor, cNumero }) => {
     });
 
     console.log("Email enviado", `${autor.email},${env.EMAIL_FINANCEIRO}`);
-    console.log("🚀🦥 Processo finalizado");
+    console.log("🚀🦥 Processo finalizado!");
   } catch (error) {
     console.log(
       "🟥 [ERRO]",
