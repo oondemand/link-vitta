@@ -117,7 +117,9 @@ export const link = async ({ baseOmie, nCodPed, autor, cNumero }) => {
     });
 
     await EmailService.enviarEmail({
-      dest: `${autor.email},${env.EMAIL_FINANCEIRO}`,
+      dest: `${autor.email}${
+        env.EMAIL_FINANCEIRO ? `,${env.EMAIL_FINANCEIRO}` : ""
+      }`,
       remetente: {
         email: "notificacao@oondemand.com.br",
         nome: "notificação oondemand",
